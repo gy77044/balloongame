@@ -55,7 +55,11 @@ body{
 .balloon.a{
     left: 10%;
 }
-
+#mobile-input{
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
 @keyframes upside {
     from{
         bottom: 0%;

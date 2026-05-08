@@ -4,6 +4,17 @@ const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let missedBalloon = 0
 let gameOver = false;
 let speed = 1500;
+
+const mobileInput = document.getElementById("mobile-input");
+
+// focus keyboard when game starts
+mobileInput.focus();
+
+// keep keyboard open
+document.addEventListener("click", () => {
+    mobileInput.focus();
+});
+
 function createBalloon(){
      if (gameOver) return;
     // random letters
@@ -22,9 +33,9 @@ function createBalloon(){
     balloon.setAttribute("data-letter", randomLetters);
     gameArea.appendChild(balloon);
     //click balloon
-    balloon.addEventListener("click", function(){
-        balloon.remove();
-    }) 
+    // balloon.addEventListener("click", function(){
+    //     balloon.remove();
+    // }) 
     balloon.addEventListener("animationend", function(){
         if(balloon.parentNode){
             balloon.remove();
@@ -35,7 +46,7 @@ function createBalloon(){
 
         alert("GAME OVER");
 
-        location.reload();
+        window.location.reload();
 
     }, 100);
             }
@@ -51,5 +62,20 @@ document.addEventListener("keydown", function(event){
         balloon.remove();
     }
 })
+// detect typing from mobile keyboard
+mobileInput.addEventListener("input", function (e) {
+
+    const pressedKey = e.target.value.toUpperCase();
+
+    const balloon =
+        document.querySelector(`[data-letter="${pressedKey}"]`);
+
+    if (balloon) {
+        balloon.remove();
+    }
+
+    // clear input after each key
+    mobileInput.value = "";
+});
 
 setInterval(createBalloon,1000);
